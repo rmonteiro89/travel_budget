@@ -51,12 +51,12 @@ ActiveRecord::Schema.define(version: 20160320214833) do
   create_table "expenses", force: :cascade do |t|
     t.date     "date"
     t.string   "description"
-    t.integer  "value_cents",    default: 0,     null: false
-    t.string   "value_currency", default: "USD", null: false
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
     t.integer  "trip_id"
     t.integer  "category_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "expenses", ["category_id"], name: "index_expenses_on_category_id"

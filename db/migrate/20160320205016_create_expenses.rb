@@ -3,7 +3,7 @@ class CreateExpenses < ActiveRecord::Migration
     create_table :expenses do |t|
       t.date :date
       t.string :description
-      t.monetize :value
+      t.monetize :amount
       t.belongs_to :trip, index: true, foreign_key: true
       t.belongs_to :category, index: true, foreign_key: true
       t.timestamps null: false
