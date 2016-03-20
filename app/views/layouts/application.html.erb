@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TravelBudget</title>
+    <title>TravelBudget - Keep track of your expenses while travelling</title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
     <body>
+      <%= render 'layouts/header' %>
       <%= flash_messages %>
-      <%= yield %>
+      <main class="container">
+        <%= yield %>
+      </main>
   </body>
 </html>
