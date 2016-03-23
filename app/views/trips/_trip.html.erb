@@ -1,0 +1,13 @@
+<div class="col-md-3">
+  <div class="thumbnail text-center">
+    <div class="caption">
+      <h4><strong><%= trip.city_name %><strong></h4>
+      <h4><%= trip.country_name %></h4>
+      <h4><%= l(trip.start_date) %> to <%= l(trip.end_date) %></h4>
+      <p class="lead"><strong><%= trip.total.format %></strong></p>
+      <p>
+        <a href="#" class="btn btn-primary" role="button">Edit</a> <a href="#" class="btn btn-danger" role="button">Delete</a>
+      </p>
+    </div>
+  </div>
+</div>

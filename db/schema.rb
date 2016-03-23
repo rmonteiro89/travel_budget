@@ -74,6 +74,14 @@ ActiveRecord::Schema.define(version: 20160320214833) do
 
   add_index "trips", ["city_id"], name: "index_trips_on_city_id"
 
+  create_table "trips_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "trip_id"
+  end
+
+  add_index "trips_users", ["trip_id"], name: "index_trips_users_on_trip_id"
+  add_index "trips_users", ["user_id"], name: "index_trips_users_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -95,13 +103,5 @@ ActiveRecord::Schema.define(version: 20160320214833) do
   add_index "users", ["currency_id"], name: "index_users_on_currency_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "users_trips", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "trip_id"
-  end
-
-  add_index "users_trips", ["trip_id"], name: "index_users_trips_on_trip_id"
-  add_index "users_trips", ["user_id"], name: "index_users_trips_on_user_id"
 
 end

@@ -1,5 +1,5 @@
 class Expense < ActiveRecord::Base
-  has_one :trip
+  belongs_to :trip
   has_one :category
 
   monetize :amount

@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to "#", class: 'btn btn-success', 'data-toggle'=>'modal', 'data-target'=>'#addTripModal' do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Trip
+    <% end %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addTripModal" tabindex="-1" role="dialog" aria-labelledby="addTripModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addTripModalLabel">New Trip</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for :trip, url: trips_path, method: :post do |trip_form| %>
+          <%= trip_form.fields_for :city_attributes do |city_form| %>
+            <%= city_form.fields_for :country_attributes do |country_form| %>
+              <%= country_form.fields_for :currency_attributes do |currency_form| %>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <%= country_form.label :country %>
+                    <%= country_form.text_field :name, class: 'form-control' %>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <%= city_form.label :city %>
+                    <%= city_form.text_field :name, class: 'form-control' %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <%= currency_form.label :currency_name %>
+                    <%= currency_form.text_field :name, class: 'form-control' %>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <%= currency_form.label :currency_symbol %>
+                    <%= currency_form.text_field :symbol, class: 'form-control' %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <%= trip_form.label :start_date %>
+                    <%= trip_form.text_field :start_date, class: 'form-control' %>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <%= trip_form.label :end_date %>
+                    <%= trip_form.text_field :end_date, class: 'form-control' %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <%= trip_form.submit "Create", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
