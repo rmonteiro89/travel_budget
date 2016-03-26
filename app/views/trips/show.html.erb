@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="page-header">
+    <div class="col-md-6">
+      <h1><%= @trip.city_name %> <small><%= @trip.country_name %></small></h1>
+    </div>
+    <div class="col-md-6 text-right">
+      <h1><small><%= l(@trip.start_date) %> to <%= l(@trip.end_date) %></small></h1>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Expenses</h3>
+    </div>
+    <div class="panel-body">
+      <div class="row container">
+        <%= form_for :expense, url: trip_expenses_path(@trip), method: :post do |expense_form| %>
+          <div class="table-no-borders">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th></th>
+                </tr>
+              </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
+                        <%= expense_form.text_field :date, class: "form-control datepicker" %>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="input-group">
+                        <div class="input-group-addon">$</div>
+                        <%= expense_form.text_field :amount, class: "form-control mask-money" %>
+                      </div>
+                    </td>
+                    <td>
+                      <%= expense_form.text_area :description, class: "form-control", rows: 2 %>
+                    </td>
+                    <td>
+                      <%= expense_form.collection_select :category_id, current_user.categories, :id, :name, {prompt: 'Select'}, {class: "form-control"} %>
+                    </td>
+                    <td>
+                      <%= expense_form.submit "Add expense", class: "btn btn-success btn-block" %>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+      <div class="row container">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Paid To</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @trip.expenses.order(:date).each do |expense| %>
+                <tr>
+                  <td><%= l(expense.date) %></td>
+                  <td><%= expense.amount.format %></td>
+                  <td><%= expense.description %></td>
+                  <td><%= expense.category_name %></td>
+                  <td>
+                    <button type="button" class="btn btn-default btn-sm" >
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                </tr>
+              <% end %>
+                <tr>
+                  <th></th>
+                  <th>Total Amount</th>
+                  <th></th>
+                  <th></th>
+                  <th>Total Paid To</th>
+                  <th></th>
+                </tr>
+                <tr class="warning">
+                  <td></td>
+                  <td><%= Money.new(@trip.expenses.sum(:amount_cents)).format %></td>
+                  <td></td>
+                  <td></td>
+                  <td>$1,000.99</td>
+                  <td></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

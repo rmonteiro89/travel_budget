@@ -17,6 +17,10 @@ class TripsController < ApplicationController
     redirect_to trips_url
   end
 
+  def show
+    @trip = Trip.find(params[:id])
+  end
+
   private
   def trip_params
     params.require(:trip).permit(:start_date, :end_date,

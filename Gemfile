@@ -25,7 +25,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # https://github.com/RubyMoney/money-rails
 gem 'money-rails'
-
 # https://github.com/plataformatec/devise
 gem 'devise'
 

@@ -1,6 +1,8 @@
 class Expense < ActiveRecord::Base
   belongs_to :trip
-  has_one :category
+  belongs_to :category
 
-  monetize :amount
+  monetize :amount_cents
+
+  delegate :name, to: :category, allow_nil: true, prefix: true
 end
