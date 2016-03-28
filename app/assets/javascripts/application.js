@@ -19,9 +19,13 @@
 //= require_tree .
 
 $(document).ready(function(){
-  $('.datepicker').datepicker({
-    format: 'dd/mm/yyyy'
+  $('.datepicker').each( function(){
+    $(this).datepicker({
+      format: 'dd/mm/yyyy'
+    });
   });
 
-  $('.mask-money').maskMoney();
+  $('.mask-money').each( function(){
+    $(this).maskMoney();
+  });
 });

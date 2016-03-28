@@ -1,0 +1,42 @@
+<div class="row container">
+  <%= form_for :expense, url: trip_expenses_path(trip), method: :post do |expense_form| %>
+    <div class="table-no-borders">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th></th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="input-group">
+                  <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
+                  <%= expense_form.text_field :date, class: "form-control datepicker" %>
+                </div>
+              </td>
+              <td>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <%= expense_form.text_field :amount, class: "form-control mask-money" %>
+                </div>
+              </td>
+              <td>
+                <%= expense_form.text_area :description, class: "form-control", rows: 2 %>
+              </td>
+              <td>
+                <%= expense_form.collection_select :category_id, current_user.categories, :id, :name, {prompt: 'Select'}, {class: "form-control"} %>
+              </td>
+              <td>
+                <%= expense_form.submit "Add expense", class: "btn btn-success btn-block" %>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
