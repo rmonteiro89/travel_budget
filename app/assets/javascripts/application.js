@@ -19,13 +19,20 @@
 //= require_tree .
 
 $(document).ready(function(){
-  $('.datepicker').each( function(){
-    $(this).datepicker({
-      format: 'dd/mm/yyyy'
-    });
-  });
+  load_datepicker();
 
   $('.mask-money').each( function(){
     $(this).maskMoney();
   });
 });
+
+function load_datepicker() {
+  $('.datepicker').each(function() {
+    $(this).datepicker({
+      format: 'dd/mm/yyyy',
+      autoclose: true
+    });
+    $(this).datepicker("setDate", new Date());
+    $(this).datepicker('update');
+  });
+}
