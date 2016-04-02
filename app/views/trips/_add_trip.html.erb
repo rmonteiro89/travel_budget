@@ -19,7 +19,7 @@
           <div class="row">
             <div class="form-group col-md-12">
               <%= trip_form.label :country %>
-              <%= trip_form.text_field :country, class: 'form-control' %>
+              <%= trip_form.collection_select :country, countries_available, :name, :name, {prompt: 'Select a country'}, {class: "form-control"} %>
             </div>
           </div>
           <div class="row">

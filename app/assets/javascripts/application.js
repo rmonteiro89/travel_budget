@@ -19,6 +19,7 @@
 //= require_tree .
 
 $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+$.fn.datepicker.defaults.autoclose = true;
 
 $(document).on('page:load', function() {
   load_datepicker();
