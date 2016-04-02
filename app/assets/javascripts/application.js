@@ -18,6 +18,16 @@
 //= require jquery-maskMoney
 //= require_tree .
 
+$.fn.datepicker.defaults.format = "dd/mm/yyyy";
+
+$(document).on('page:load', function() {
+  load_datepicker();
+
+  $('.mask-money').each( function(){
+    $(this).maskMoney();
+  });
+});
+
 $(document).ready(function(){
   load_datepicker();
 
@@ -33,4 +43,27 @@ function load_datepicker() {
       autoclose: true
     });
   });
+}
+
+$(document).on('click', '#end_date', function () {
+  start_date_before_end_date();
+});
+
+$(document).on('change', '#start_date', function () {
+  var current_obj = $(this);
+  start_date_before_end_date();
+});
+
+function start_date_before_end_date() {
+  var start_date = $('#start_date').datepicker('getDate');
+  var end_date = $('#end_date').datepicker('getDate');
+
+  if (end_date && start_date.valueOf() > end_date.valueOf()) {
+    $('#end_date').datepicker('setDate', start_date);
+    $('#end_date').datepicker('update');
+    $('#end_date')[0].focus();
+  }
+
+  $('#end_date').datepicker('setStartDate', start_date);
+  $('#end_date').datepicker('update');
 }

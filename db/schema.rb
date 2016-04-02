@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320214833) do
+ActiveRecord::Schema.define(version: 20160320212156) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -21,32 +21,6 @@ ActiveRecord::Schema.define(version: 20160320214833) do
   end
 
   add_index "categories", ["user_id"], name: "index_categories_on_user_id"
-
-  create_table "cities", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "cities", ["country_id"], name: "index_cities_on_country_id"
-
-  create_table "countries", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "currency_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "countries", ["currency_id"], name: "index_countries_on_currency_id"
-
-  create_table "currencies", force: :cascade do |t|
-    t.string   "name"
-    t.string   "symbol"
-    t.string   "decimal_mark", default: ","
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
 
   create_table "expenses", force: :cascade do |t|
     t.date     "date"
@@ -65,14 +39,14 @@ ActiveRecord::Schema.define(version: 20160320214833) do
   create_table "trips", force: :cascade do |t|
     t.integer  "exchange_rate_cents",    default: 0,     null: false
     t.string   "exchange_rate_currency", default: "USD", null: false
+    t.string   "currency"
+    t.string   "country"
+    t.string   "city"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.integer  "city_id"
   end
-
-  add_index "trips", ["city_id"], name: "index_trips_on_city_id"
 
   create_table "trips_users", force: :cascade do |t|
     t.integer "user_id"
@@ -97,10 +71,9 @@ ActiveRecord::Schema.define(version: 20160320214833) do
     t.datetime "updated_at",                          null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "currency_id"
+    t.string   "currency"
   end
 
-  add_index "users", ["currency_id"], name: "index_users_on_currency_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

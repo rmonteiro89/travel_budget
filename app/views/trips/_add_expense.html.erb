@@ -32,7 +32,9 @@
     </div>
     <div class="col-md-2">
       <br>
-      <%= expense_form.submit "Add expense", class: "btn btn-success btn-block" %>
+      <%= button_tag(type: 'submit', class: "btn btn-success btn-block") do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add expense
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -1,7 +1,7 @@
 class ExpensesController < ApplicationController
 
   def create
-    trip = Trip.find(params[:trip_id])
+    trip = find_trip
     new_expense = trip.expenses.build(expense_params)
     new_expense.save
 
@@ -9,7 +9,7 @@ class ExpensesController < ApplicationController
   end
 
   def update
-    trip = Trip.find(params[:trip_id])
+    trip = find_trip
     expense = trip.expenses.find(params[:id])
     expense.update_attributes(expense_params)
 
@@ -17,7 +17,7 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
-    trip = Trip.find(params[:trip_id])
+    trip = find_trip
     expense = trip.expenses.find(params[:id])
     expense.destroy
 
@@ -26,6 +26,10 @@ class ExpensesController < ApplicationController
   end
 
   private
+  def find_trip
+    current_user.trips.find(params[:trip_id])
+  end
+
   def expense_params
     params.require(:expense).permit(:date, :category_id, :amount, :description)
   end
