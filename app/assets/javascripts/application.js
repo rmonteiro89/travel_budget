@@ -32,7 +32,5 @@ function load_datepicker() {
       format: 'dd/mm/yyyy',
       autoclose: true
     });
-    $(this).datepicker("setDate", new Date());
-    $(this).datepicker('update');
   });
 }

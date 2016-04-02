@@ -5,7 +5,7 @@
         <%= expense_form.label :date %>
         <div class="input-group">
           <div class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></div>
-          <%= expense_form.text_field :date, class: "form-control datepicker" %>
+          <%= expense_form.text_field :date, value: l(Date.today), class: "form-control datepicker" %>
         </div>
       </div>
     </div>
