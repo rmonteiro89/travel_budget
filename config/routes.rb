@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :trips do
     resources :expenses
   end
+
+  resources :cities, only: [:index]
+  resources :currencies, only: [:index]
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
