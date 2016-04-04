@@ -45,7 +45,7 @@
           </tr>
           <tr class="warning">
             <td></td>
-            <td><%= Money.new(trip.expenses.sum(:amount_cents)).format %></td>
+            <td><%= Money.new(trip.user_expenses(current_user).sum(:amount_cents)).format %></td>
             <td></td>
             <td></td>
             <td>$1,000.99</td>
