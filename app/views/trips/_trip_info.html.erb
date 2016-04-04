@@ -14,4 +14,7 @@
       <% end %>
     </div>
   </div>
+  <div class="col-md-12">
+    <h3>Travelers: <small><%= trip.users.map(&:email).join(', ') %></small></h3>
+  </div>
 </div>

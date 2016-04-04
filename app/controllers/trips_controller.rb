@@ -12,7 +12,7 @@ class TripsController < ApplicationController
     end
 
     flash[:notice] = "New trip created successfuly!"
-    redirect_to trips_path
+    redirect_to trip
   rescue Exception => e
     flash[:alert] = "Cannot create the trip. Error: #{e.message}!"
     redirect_to trips_path

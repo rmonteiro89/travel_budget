@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 20160320212156) do
     t.string   "amount_currency", default: "USD", null: false
     t.integer  "trip_id"
     t.integer  "category_id"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
   end
 
   add_index "expenses", ["category_id"], name: "index_expenses_on_category_id"
   add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
-  add_index "expenses", ["users_id"], name: "index_expenses_on_users_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "trips", force: :cascade do |t|
     t.integer  "exchange_rate_cents",    default: 0,     null: false
