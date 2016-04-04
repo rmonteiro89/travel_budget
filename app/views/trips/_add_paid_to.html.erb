@@ -1,0 +1,37 @@
+<%= link_to "#", class: 'btn btn-default btn-sm', 'data-toggle'=>'modal', 'data-target'=>"#addPaidToModal_#{expense.id}" do %>
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade" id=<%="addPaidToModal_#{expense.id}"%> tabindex="-1" role="dialog" aria-labelledby="addPaidToModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addPaidToModalLabel">Paid to</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for :debt, url: trip_expense_debts_path(trip_id: trip.id, expense_id: expense.id), method: :post do |debt_form| %>
+          <div class="row">
+            <%= debt_form.hidden_field :recipient_id, value: current_user.id %>
+            <div class="form-group col-md-12">
+              <%= debt_form.collection_select :user_id, (trip.users - [current_user]), :id, :email, {prompt: 'Select User'}, {id: 'select_user', class: "form-control"} %>
+            </div>
+            <div class="form-group col-md-12">
+              <%= debt_form.label :amount %>
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <%= debt_form.text_field :amount, class: "form-control mask-money" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <%= debt_form.submit "Create", class: 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

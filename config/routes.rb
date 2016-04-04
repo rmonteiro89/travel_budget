@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'trips' => 'trips#index', as: :user_root
   resources :trips do
-    resources :expenses
+    resources :expenses do
+      resources :debts, only: [:create]
+    end
     resources :invites, only: [:create]
   end
 

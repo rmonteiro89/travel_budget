@@ -12,17 +12,25 @@
         </tr>
       </thead>
       <tbody>
-        <% trip.user_expenses(current_user).order(:date).each do |expense| %>
+        <% trip.expenses_by_user(current_user).order(:date).each do |expense| %>
           <tr>
             <td><%= l(expense.date) %></td>
             <td><%= expense.amount.format %></td>
             <td><%= expense.description %></td>
             <td><%= expense.category_name %></td>
             <td>
-              <button type="button" class="btn btn-default btn-sm" >
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-              </button>
+              <table>
+                <tr>
+                  <td><%= render partial: 'trips/add_paid_to', locals: {trip: trip, expense: expense} %></td>
+                  <td>
+                    <ul>
+                      <% (trip.users - [current_user]).each do |user| %>
+                        <li><%= "#{user.email}: #{expense.total_debt_by_user(user).format}" %></li>
+                      <% end %>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
             </td>
             <td>
               <%= link_to '#', class:'btn btn-primary btn-sm', 'data-toggle'=>'modal', 'data-target'=> "#editExpenseModal_#{expense.id}" do %>
@@ -45,10 +53,10 @@
           </tr>
           <tr class="warning">
             <td></td>
-            <td><%= Money.new(trip.user_expenses(current_user).sum(:amount_cents)).format %></td>
+            <td><%= trip.total_by_user(current_user).format %></td>
             <td></td>
             <td></td>
-            <td>$1,000.99</td>
+            <td><%= trip.paid_to_total_by_user(current_user).format %></td>
             <td></td>
           </tr>
       </tbody>

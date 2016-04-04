@@ -4,11 +4,15 @@ class Trip < ActiveRecord::Base
 
   monetize :exchange_rate_cents
 
-  def user_expenses(user)
+  def expenses_by_user(user)
     expenses.by_user(user)
   end
 
-  def total
-    expenses.inject(Money.new(0)) { |sum, expense| sum + expense.amount }
+  def total_by_user(user)
+    expenses_by_user(user).inject(Money.new(0)) { |sum, expense| sum + expense.amount }
+  end
+
+  def paid_to_total_by_user(user)
+    expenses_by_user(user).inject(Money.new(0)) { |sum, expense| sum + expense.total_debt }
   end
 end
