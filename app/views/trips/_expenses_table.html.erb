@@ -7,7 +7,7 @@
           <th>Amount</th>
           <th>Description</th>
           <th>Category</th>
-          <th>Paid To</th>
+          <th>Extra</th>
           <th></th>
         </tr>
       </thead>
@@ -19,9 +19,9 @@
             <td><%= expense.description %></td>
             <td><%= expense.category_name %></td>
             <td>
-              <table>
+              <table class="table">
                 <tr>
-                  <td><%= render partial: 'trips/add_paid_to', locals: {trip: trip, expense: expense} %></td>
+                  <td><%= render partial: 'trips/add_paid_for', locals: {trip: trip, expense: expense} %></td>
                   <td>
                     <ul>
                       <% (trip.users - [current_user]).each do |user| %>
@@ -29,6 +29,10 @@
                       <% end %>
                     </ul>
                   </td>
+                </tr>
+                <tr>
+                  <td><%= render partial: 'trips/add_paid_debt_to', locals: {trip: trip, expense: expense} %></td>
+                  <td></td>
                 </tr>
               </table>
             </td>
@@ -48,7 +52,7 @@
             <th>Total Amount</th>
             <th></th>
             <th></th>
-            <th>Total Paid To</th>
+            <th>Total Credit</th>
             <th></th>
           </tr>
           <tr class="warning">
@@ -56,7 +60,7 @@
             <td><%= trip.total_by_user(current_user).format %></td>
             <td></td>
             <td></td>
-            <td><%= trip.paid_to_total_by_user(current_user).format %></td>
+            <td><%= trip.paid_for_total_by_user(current_user).format %></td>
             <td></td>
           </tr>
       </tbody>

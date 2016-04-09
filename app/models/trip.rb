@@ -12,7 +12,7 @@ class Trip < ActiveRecord::Base
     expenses_by_user(user).inject(Money.new(0)) { |sum, expense| sum + expense.amount }
   end
 
-  def paid_to_total_by_user(user)
+  def paid_for_total_by_user(user)
     expenses_by_user(user).inject(Money.new(0)) { |sum, expense| sum + expense.total_debt }
   end
 end

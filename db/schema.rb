@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404124908) do
+ActiveRecord::Schema.define(version: 20160409155804) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160404124908) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "categories", ["user_id"], name: "index_categories_on_user_id"
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id", using: :btree
 
   create_table "debts", force: :cascade do |t|
     t.integer  "amount_cents",    default: 0,     null: false
@@ -33,9 +36,9 @@ ActiveRecord::Schema.define(version: 20160404124908) do
     t.datetime "updated_at",                      null: false
   end
 
-  add_index "debts", ["expense_id"], name: "index_debts_on_expense_id"
-  add_index "debts", ["recipient_id"], name: "index_debts_on_recipient_id"
-  add_index "debts", ["user_id"], name: "index_debts_on_user_id"
+  add_index "debts", ["expense_id"], name: "index_debts_on_expense_id", using: :btree
+  add_index "debts", ["recipient_id"], name: "index_debts_on_recipient_id", using: :btree
+  add_index "debts", ["user_id"], name: "index_debts_on_user_id", using: :btree
 
   create_table "expenses", force: :cascade do |t|
     t.date     "date"
@@ -43,15 +46,15 @@ ActiveRecord::Schema.define(version: 20160404124908) do
     t.integer  "amount_cents",    default: 0,     null: false
     t.string   "amount_currency", default: "USD", null: false
     t.integer  "trip_id"
-    t.integer  "category_id"
     t.integer  "user_id"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "category_id"
   end
 
-  add_index "expenses", ["category_id"], name: "index_expenses_on_category_id"
-  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id"
-  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+  add_index "expenses", ["category_id"], name: "index_expenses_on_category_id", using: :btree
+  add_index "expenses", ["trip_id"], name: "index_expenses_on_trip_id", using: :btree
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "trips", force: :cascade do |t|
     t.integer  "exchange_rate_cents",    default: 0,     null: false
@@ -70,8 +73,8 @@ ActiveRecord::Schema.define(version: 20160404124908) do
     t.integer "trip_id"
   end
 
-  add_index "trips_users", ["trip_id"], name: "index_trips_users_on_trip_id"
-  add_index "trips_users", ["user_id"], name: "index_trips_users_on_user_id"
+  add_index "trips_users", ["trip_id"], name: "index_trips_users_on_trip_id", using: :btree
+  add_index "trips_users", ["user_id"], name: "index_trips_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -91,7 +94,15 @@ ActiveRecord::Schema.define(version: 20160404124908) do
     t.string   "currency"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "categories", "users"
+  add_foreign_key "debts", "expenses"
+  add_foreign_key "debts", "users"
+  add_foreign_key "expenses", "categories"
+  add_foreign_key "expenses", "trips"
+  add_foreign_key "expenses", "users"
+  add_foreign_key "trips_users", "trips"
+  add_foreign_key "trips_users", "users"
 end
