@@ -19,20 +19,17 @@
             <td><%= expense.description %></td>
             <td><%= expense.category_name %></td>
             <td>
-              <table class="table">
+              <table>
                 <tr>
                   <td><%= render partial: 'trips/add_paid_for', locals: {trip: trip, expense: expense} %></td>
                   <td>
+                  <td>
                     <ul>
-                      <% (trip.users - [current_user]).each do |user| %>
-                        <li><%= "#{user.email}: #{expense.total_debt_by_user(user).format}" %></li>
+                      <% expense.debts.each do |debt| %>
+                        <li><%= "#{debt.user.email}: #{expense.total_debt_by_user(debt.user).format}" %></li>
                       <% end %>
                     </ul>
                   </td>
-                </tr>
-                <tr>
-                  <td><%= render partial: 'trips/add_paid_debt_to', locals: {trip: trip, expense: expense} %></td>
-                  <td></td>
                 </tr>
               </table>
             </td>
