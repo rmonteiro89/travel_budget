@@ -20,7 +20,7 @@
         <h3>Travelers: <small><%= trip.users.map(&:email).join(', ') %></small></h3>
       </div>
       <div class="col-md-6">
-        <h3>Local Currency: <small><%= trip.local_currency %></small></h3>
+        <h3>Local Currency: <small><%= "#{trip.local_currency.iso_code} - #{trip.local_currency.name} - #{trip.local_currency.symbol}" %></small></h3>
       </div>
     </div>
   </div>

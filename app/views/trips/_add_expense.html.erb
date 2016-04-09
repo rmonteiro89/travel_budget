@@ -13,7 +13,7 @@
       <div class="form-group">
         <%= expense_form.label :amount %>
         <div class="input-group">
-          <div class="input-group-addon">$</div>
+          <div class="input-group-addon"><%= trip.local_currency.symbol %></div>
           <%= expense_form.text_field :amount, class: "form-control mask-money" %>
         </div>
       </div>

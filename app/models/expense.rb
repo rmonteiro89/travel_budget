@@ -4,9 +4,11 @@ class Expense < ActiveRecord::Base
   belongs_to :user
   has_many :debts, dependent: :destroy
 
-  monetize :amount_cents
+  monetize :amount_cents, with_model_currency: :currency
 
   scope :by_user, -> (user) { where(user_id: user.id) }
+
+  delegate :currency, to: :trip
   delegate :name, to: :category, allow_nil: true, prefix: true
 
   def total_debt

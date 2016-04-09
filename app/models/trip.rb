@@ -2,13 +2,10 @@ class Trip < ActiveRecord::Base
   has_and_belongs_to_many :users, autosave: true
   has_many :expenses
 
-  monetize :exchange_rate_cents
+  monetize :exchange_rate_cents, with_model_currency: :currency
 
   def local_currency
-    c = ::Money::Currency.find(currency)
-    return 'N/A' if c.nil?
-
-    "#{c.iso_code} - #{c.name} - #{c.symbol}"
+    ::Money::Currency.find(currency)
   end
 
   def expenses_by_user(user)
@@ -16,10 +13,10 @@ class Trip < ActiveRecord::Base
   end
 
   def total_by_user(user)
-    expenses_by_user(user).inject(Money.new(0)) { |sum, expense| sum + expense.amount }
+    expenses_by_user(user).inject(Money.new(0, currency)) { |sum, expense| sum + expense.amount }
   end
 
   def paid_for_total_by_user(user)
-    expenses_by_user(user).inject(Money.new(0)) { |sum, expense| sum + expense.total_debt }
+    expenses_by_user(user).inject(Money.new(0, currency)) { |sum, expense| sum + expense.total_debt }
   end
 end
