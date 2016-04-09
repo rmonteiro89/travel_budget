@@ -12,10 +12,10 @@ class Expense < ActiveRecord::Base
   delegate :name, to: :category, allow_nil: true, prefix: true
 
   def total_debt
-    debts.inject(Money.new(0)) { |sum, debt| sum + debt.amount }
+    debts.inject(Money.new(0), currency) { |sum, debt| sum + debt.amount }
   end
 
   def total_debt_by_user(user)
-    debts.by_user(user).inject(Money.new(0)) { |sum, debt| sum + debt.amount }
+    debts.by_user(user).inject(Money.new(0), currency) { |sum, debt| sum + debt.amount }
   end
 end
