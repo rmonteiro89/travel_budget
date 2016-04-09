@@ -12,7 +12,7 @@ class ExpensesController < ApplicationController
     expense = find_expense
     expense.update_attributes(expense_params)
 
-    redirect_to trip
+    redirect_to expense.trip
   end
 
   def destroy
@@ -20,7 +20,7 @@ class ExpensesController < ApplicationController
     expense.destroy
 
     flash[:notice] = "Expense deleted!"
-    redirect_to trip
+    redirect_to expense.trip
   end
 
   private
