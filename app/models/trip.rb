@@ -4,6 +4,13 @@ class Trip < ActiveRecord::Base
 
   monetize :exchange_rate_cents
 
+  def local_currency
+    c = ::Money::Currency.find(currency)
+    return 'N/A' if c.nil?
+
+    "#{c.iso_code} - #{c.name} - #{c.symbol}"
+  end
+
   def expenses_by_user(user)
     expenses.by_user(user)
   end
