@@ -4,7 +4,7 @@
       <h4><strong><%= trip.city %><strong></h4>
       <h4><%= trip.country %></h4>
       <h4><%= l(trip.start_date) %> to <%= l(trip.end_date) %></h4>
-      <p class="lead"><strong><%= trip.total.format %></strong></p>
+      <p class="lead"><strong><%= trip.total_by_user(current_user).format %></strong></p>
     <% end %>
   </div>
 </div>
