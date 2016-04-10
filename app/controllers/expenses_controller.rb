@@ -3,7 +3,11 @@ class ExpensesController < ApplicationController
   def create
     trip = find_trip
     new_expense = build_expense(trip)
-    new_expense.save
+    if new_expense.save
+      flash[:notice] = "Expense ##{new_expense.id}, amount #{new_expense.amount.format}, date #{I18n.l(new_expense.date)} created successfully!"
+    else
+      flash[:alert] = new_expense.errors.full_messages
+    end
 
     redirect_to trip
   end
@@ -34,10 +38,12 @@ class ExpensesController < ApplicationController
   end
 
   def build_expense(trip)
-    trip.expenses.build(expense_params.merge(user_id: current_user.id))
+    expense = trip.expenses.build(expense_params.merge(user_id: current_user.id))
+    expense.amount = expense_params[:amount]
+    expense
   end
 
   def expense_params
-    params.require(:expense).permit(:date, :category_id, :amount, :description)
+    params.require(:expense).permit(:date, :category_id, :amount, :description, :amount_currency)
   end
 end

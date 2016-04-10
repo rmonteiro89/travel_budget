@@ -1,5 +1,6 @@
 <div class="row">
   <%= form_for :expense, url: trip_expenses_path(trip), method: :post do |expense_form| %>
+    <%= expense_form.hidden_field :amount_currency, value: trip.currency %>
     <div class="col-md-2">
       <div class="form-group">
         <%= expense_form.label :date %>

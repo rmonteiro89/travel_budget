@@ -15,13 +15,14 @@
         <%= form_for :debt, url: trip_expense_debts_path(trip_id: trip.id, expense_id: expense.id), method: :post do |debt_form| %>
           <div class="row">
             <%= debt_form.hidden_field :recipient_id, value: current_user.id %>
+            <%= debt_form.hidden_field :amount_currency, value: trip.currency %>
             <div class="form-group col-md-12">
               <%= debt_form.collection_select :user_id, (trip.users - [current_user]), :id, :email, {prompt: 'Select User'}, {id: 'select_user', class: "form-control"} %>
             </div>
             <div class="form-group col-md-12">
               <%= debt_form.label :amount %>
               <div class="input-group">
-                <div class="input-group-addon">$</div>
+                <div class="input-group-addon"><%= trip.local_currency.symbol %></div>
                 <%= debt_form.text_field :amount, class: "form-control mask-money" %>
               </div>
             </div>

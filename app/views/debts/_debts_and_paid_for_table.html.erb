@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Paid for / Owe to</th>
+      <th>Credit amount (Paid for)</th>
+      <th>Debt amount </th>
+      <th>Total (Credit - Debt)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% (trip.users - [current_user]).each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= credit_amount_by(current_user, trip, user).format %></td>
+        <td><%= debt_amount_by(current_user, trip, user).format %></td>
+        <td><%= (credit_amount_by(current_user, trip, user) - debt_amount_by(current_user, trip, user)).format %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -6,7 +6,7 @@ class DebtsController < ApplicationController
     if debt.save
       flash[:notice] = 'Debt created!'
     else
-      flash[:alert] = 'Cannot create debt! Error: #{debt.errors.messages}'
+      flash[:alert] = debt.errors.full_messages
     end
 
     redirect_to debt.expense.trip
@@ -15,12 +15,12 @@ class DebtsController < ApplicationController
   private
   def build_debt
     expense = current_user.expenses.find(params[:expense_id])
-    debt = Debt.new(debt_params)
-    debt.expense = expense
+    debt = expense.debts.build(debt_params)
+    debt.amount = debt_params[:amount]
     debt
   end
 
   def debt_params
-    params.require(:debt).permit(:user_id, :recipient_id, :amount, :paid)
+    params.require(:debt).permit(:user_id, :recipient_id, :amount, :paid, :amount_currency)
   end
 end

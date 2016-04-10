@@ -12,14 +12,13 @@
 </div>
 <%= render partial: 'trips/trip_info', locals: {trip: @trip} %>
 <br>
-<div class="row">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Expenses</h3>
-    </div>
-    <div class="panel-body">
-      <%= render partial: 'trips/add_expense', locals: {trip: @trip} %>
-      <%= render partial: 'trips/expenses_table', locals: {trip: @trip} %>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">New Expense</h3>
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'expenses/add_expense', locals: {trip: @trip} %>
   </div>
 </div>
+<br>
+<%= render partial: 'trips/options_list', locals: {trip: @trip} %>
