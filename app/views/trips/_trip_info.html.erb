@@ -19,8 +19,17 @@
       <div class="col-md-5">
         <h3>Travelers: <small><%= trip.users.map(&:email).join(', ') %></small></h3>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <h3>Local Currency: <small><%= "#{trip.local_currency.iso_code} - #{trip.local_currency.name} - #{trip.local_currency.symbol}" %></small></h3>
+      </div>
+      <div class="col-md-3 text-right">
+        <% if current_user.currency.present? %>
+          <% if trip.exchange_rate > 0.to_money %>
+            <h3><small><%= "#{trip.local_currency.try(:smallest_denomination)} #{trip.currency} = #{trip.exchange_rate} #{trip.exchange_rate_currency}"%> (<%= render partial: 'trips/add_exchange_rate', locals: {trip: trip, link_name: 'change'} %>)</small><h3>
+          <% else %>
+            <h3><small><%= render partial: 'trips/add_exchange_rate', locals: {trip: trip, link_name: "add exchange rate #{trip.currency} to #{current_user.currency}"} %></small></h3>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

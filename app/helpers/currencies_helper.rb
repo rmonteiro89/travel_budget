@@ -1,5 +1,6 @@
 module CurrenciesHelper
+
   def currencies_available
-    ::Money::Currency.all
+    ::CurrencyDecorator.decorate_collection(::Money::Currency.all)
   end
 end

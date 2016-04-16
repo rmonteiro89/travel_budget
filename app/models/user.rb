@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
 
   after_create :add_default_categories
 
+  def default_currency
+    return nil unless currency
+    ::Money::Currency.find(currency)
+  end
+
   private
   def add_default_categories
     categories << Category.default

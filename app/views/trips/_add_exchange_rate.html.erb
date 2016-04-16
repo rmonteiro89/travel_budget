@@ -1,0 +1,26 @@
+<%= link_to link_name, "#", 'data-toggle'=>'modal', 'data-target'=>'#addExchangeRateModal' %>
+<!-- Modal -->
+<div class="modal fade" id="addExchangeRateModal" tabindex="-1" role="dialog" aria-labelledby="addExchangeRateModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <%= form_for trip, url: trip_path(trip), method: :patch do |trip_form| %>
+        <div class="modal-body text-left">
+          <%= trip_form.hidden_field :exchange_rate_currency, value: current_user.currency %>
+          <table>
+            <tbody>
+              <tr>
+                <td class="text-right"><%= "#{trip.local_currency.try(:smallest_denomination)} #{trip.currency} =" %></td>
+                <td class="col-md-5"><%= trip_form.text_field :exchange_rate, class: "form-control" %></td>
+                <td><%= current_user.currency %></td>
+              <tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <%= trip_form.submit "Done", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

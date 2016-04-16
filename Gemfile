@@ -21,7 +21,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
 # https://github.com/RubyMoney/money-rails
 gem 'money-rails'
 # https://github.com/plataformatec/devise
@@ -30,13 +29,17 @@ gem 'devise'
 gem 'countries', :require => 'countries/global'
 # https://github.com/joecorcoran/cities
 gem 'cities', '~> 0.3.1'
+# https://github.com/drapergem/draper
+gem 'draper', '~> 1.3'
+# https://github.com/puma/puma
+gem 'puma'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
-gem 'puma'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
