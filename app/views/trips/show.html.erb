@@ -20,5 +20,31 @@
     <%= render partial: 'expenses/add_expense', locals: {trip: @trip} %>
   </div>
 </div>
-<br>
-<%= render partial: 'trips/options_list', locals: {trip: @trip} %>
+
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
+    <li role="presentation"><a href="#all_expenses" aria-controls="all_expenses" role="tab" data-toggle="tab">All Expenses</a></li>
+    <li role="presentation"><a href="#debts" aria-controls="debts" role="tab" data-toggle="tab">Debts and Paid for</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="summary">
+      <div class="panel-body">
+        <%= render partial: 'trips/trip_summary', locals: {trip: @trip} %>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="all_expenses">
+      <div class="panel-body">
+        <%= render partial: 'expenses/expenses_table', locals: {trip: @trip} %>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="debts">
+      <div class="panel-body">
+        <%= render partial: 'debts/debts_and_paid_for_table', locals: {trip: @trip} %>
+      </div>
+    </div>
+  </div>
+</div>

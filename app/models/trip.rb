@@ -8,6 +8,24 @@ class Trip < ActiveRecord::Base
     ::Money::Currency.find(currency)
   end
 
+  def current_week_by_user(user)
+    expenses = expenses_by_user(user).order(:date)
+    return Money.new(0, currency) unless expenses
+
+    first_day_of_week = expenses.last.date.beginning_of_week
+    expenses.where('date >= ?', first_day_of_week).inject(Money.new(0, currency)) { |sum, expense| sum + expense.amount }
+  end
+
+  def average_per_day_by_user(user)
+    expenses = expenses_by_user(user).order(:date)
+    amount_of_days = (expenses.last.date - expenses.first.date).to_i
+    (total_by_user(user) / amount_of_days)
+  end
+
+  def average_per_week_by_user(user)
+    average_per_day_by_user(user) * 7
+  end
+
   def expenses_by_user(user)
     expenses.by_user(user)
   end

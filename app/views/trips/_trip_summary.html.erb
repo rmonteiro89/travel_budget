@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-6">
+    <table class="table">
+      <thead>
+        <th></th>
+        <th><small>Local Currency (<%= trip.currency %>)</small></th>
+        <th><small>Default Currency (<%= trip.exchange_rate_currency %>)</small></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total Spent</td>
+          <td><%= trip.total_by_user(current_user).format %></td>
+          <td><%= trip.calc_in_exchange_currency(trip.total_by_user(current_user).cents).format %></td>
+        </tr>
+        <tr>
+          <td>Average per Day</td>
+          <td><%= trip.average_per_day_by_user(current_user).format %></td>
+          <td><%= trip.calc_in_exchange_currency(trip.average_per_day_by_user(current_user).cents).format %></td>
+        </tr>
+        <tr>
+          <td>Average per Week (7 days)</td>
+          <td><%= trip.average_per_week_by_user(current_user).format %></td>
+          <td><%= trip.calc_in_exchange_currency(trip.average_per_week_by_user(current_user).cents).format %>  </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <thead>
+        <th></th>
+        <th><small>Local Currency (<%= trip.currency %>)</small></th>
+        <th><small>Default Currency (<%= trip.exchange_rate_currency %>)</small></th>
+      </thead>
+      <tr>
+        <td>Current Week</td>
+        <td><%= trip.current_week_by_user(current_user).format %></td>
+        <td><%= trip.calc_in_exchange_currency(trip.current_week_by_user(current_user).cents).format %></td>
+      </tr>
+      <tr>
+        <td>Total Debt</td>
+        <td><%= sum_debts_total_amount(Debt.by_user(current_user).by_trip(trip), trip.currency).format %></td>
+        <td><%= trip.calc_in_exchange_currency(sum_debts_total_amount(Debt.by_user(current_user).by_trip(trip), trip.currency).cents).format %></td>
+      </tr>
+      <tr>
+        <td>Total Credit (Paid for)</td>
+        <td><%= sum_debts_total_amount(Debt.by_recipient(current_user).by_trip(trip), trip.currency).format %></td>
+        <td><%= trip.calc_in_exchange_currency(sum_debts_total_amount(Debt.by_recipient(current_user).by_trip(trip), trip.currency).cents).format %></td>
+      </tr>
+    </table>
+  </div>
+</div>
