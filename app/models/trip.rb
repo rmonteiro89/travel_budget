@@ -18,6 +18,8 @@ class Trip < ActiveRecord::Base
 
   def average_per_day_by_user(user)
     expenses = expenses_by_user(user).order(:date)
+    return Money.new(0, currency) unless expenses
+
     amount_of_days = (expenses.last.date - expenses.first.date).to_i
     (total_by_user(user) / amount_of_days)
   end
