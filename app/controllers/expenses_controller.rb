@@ -1,10 +1,11 @@
 class ExpensesController < ApplicationController
+  include ExpensesHelper
 
   def create
     trip = find_trip
     new_expense = build_expense(trip)
     if new_expense.save
-      flash[:notice] = "Expense ##{new_expense.id}, amount #{new_expense.amount.format}, date #{I18n.l(new_expense.date)} created successfully!"
+      flash[:notice] = expense_created_message(new_expense)
     else
       flash[:alert] = new_expense.errors.full_messages
     end

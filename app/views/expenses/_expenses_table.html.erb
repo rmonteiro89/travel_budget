@@ -12,7 +12,7 @@
     </thead>
     <tbody>
       <% trip.expenses_by_user(current_user).order(:date).each do |expense| %>
-        <tr>
+        <tr id="expense#<%= expense.id %>">
           <td><%= l(expense.date) %></td>
           <td><%= expense.amount.format %></td>
           <td><%= expense.description %></td>
