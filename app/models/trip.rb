@@ -12,7 +12,7 @@ class Trip < ActiveRecord::Base
     expenses = expenses_by_user(user).order(:date)
     return Money.new(0, currency) unless expenses.present?
 
-    first_day_of_week = expenses.last.date.beginning_of_week
+    first_day_of_week = Date.today.beginning_of_week
     expenses.where('date >= ?', first_day_of_week).inject(Money.new(0, currency)) { |sum, expense| sum + expense.amount }
   end
 
@@ -21,7 +21,7 @@ class Trip < ActiveRecord::Base
     return Money.new(0, currency) unless expenses.present?
 
     amount_of_days = (expenses.last.date - expenses.first.date).to_i
-    (total_by_user(user) / amount_of_days)
+    amount_of_days > 0 ? (total_by_user(user) / amount_of_days) : (total_by_user(user) / 1)
   end
 
   def average_per_week_by_user(user)
@@ -51,7 +51,7 @@ class Trip < ActiveRecord::Base
   def calc_in_exchange_currency(value_in_cents)
     return Money.new(0) if self.exchange_rate_cents.zero?
 
-    total_exchange = value_in_cents * self.exchange_rate_cents / self.local_currency.smallest_denomination**2
+    total_exchange = value_in_cents * self.exchange_rate_cents / (self.local_currency.smallest_denomination*100.00)
     Money.new(total_exchange, self.exchange_rate_currency)
   end
 
