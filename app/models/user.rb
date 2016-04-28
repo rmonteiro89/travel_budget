@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :categories
   has_many :expenses
   has_many :debts
+  has_many :credits, inverse_of: :recipient, class_name: 'Debt', foreign_key: :recipient_id
   has_and_belongs_to_many :trips, autosave: true
 
   after_create :add_default_categories
@@ -14,6 +15,13 @@ class User < ActiveRecord::Base
   def default_currency
     return nil unless currency
     ::Money::Currency.find(currency)
+  end
+
+  def to_s
+    full_name = [first_name, last_name].join(' ').titleize
+    return full_name unless full_name.blank?
+
+    email
   end
 
   private

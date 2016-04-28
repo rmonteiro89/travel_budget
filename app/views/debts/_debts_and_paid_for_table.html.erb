@@ -5,6 +5,7 @@
       <th>Credit amount (Paid for)</th>
       <th>Debt amount </th>
       <th>Total (Credit - Debt)</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,11 @@
         <td><%= debt_amount_by(current_user, trip, user).format %></td>
         <% total_debts = (credit_amount_by(current_user, trip, user) - debt_amount_by(current_user, trip, user)) %>
         <td><%= "#{total_debts.format} (#{trip.calc_in_exchange_currency(total_debts.cents).format})" %></td>
+        <td>
+          <%= link_to trip_debts_path(trip, user_id: user.id), class: 'btn btn-default btn-sm' do %>
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Details
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

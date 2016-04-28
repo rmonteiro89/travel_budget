@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :expenses do
       resources :debts, only: [:create]
     end
+    resources :debts, only: [:index]
     resources :invites, only: [:create]
   end
 

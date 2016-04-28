@@ -1,4 +1,17 @@
 class DebtsController < ApplicationController
+  before_action :authenticate_user!
+
+  def index
+    @trip = find_trip
+    @debts = current_user.debts.by_trip(@trip)
+    @credits = current_user.credits.by_trip(@trip)
+
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @debts = @debts.by_recipient(@user)
+      @credits = @credits.by_user(@user)
+    end
+  end
 
   def create
     debt = build_debt
@@ -14,10 +27,18 @@ class DebtsController < ApplicationController
 
   private
   def build_debt
-    expense = current_user.expenses.find(params[:expense_id])
+    expense = find_expense
     debt = expense.debts.build(debt_params)
     debt.amount = debt_params[:amount]
     debt
+  end
+
+  def find_expense
+    current_user.expenses.find(params[:expense_id])
+  end
+
+  def find_trip
+    current_user.trips.find(params[:trip_id])
   end
 
   def debt_params

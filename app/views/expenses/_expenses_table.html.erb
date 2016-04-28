@@ -67,7 +67,7 @@
           <td><%= trip.total_by_user_in_exchange_currency(current_user).format %></td>
           <td></td>
           <td></td>
-          <td><%= trip.paid_for_total_by_user_in_exchange_currency(current_user).format %></td>
+          <td><%= trip.calc_in_exchange_currency(trip.average_per_day_by_user(current_user).cents).format %></td>
           <td></td>
         </tr>
     </tbody>
