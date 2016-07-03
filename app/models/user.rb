@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   def default_currency
     return nil unless currency
-    ::Money::Currency.find(currency)
+    Currency.find(currency)
   end
 
   def to_s

@@ -5,7 +5,7 @@ class Trip < ActiveRecord::Base
   monetize :exchange_rate_cents, with_model_currency: :currency
 
   def local_currency
-    ::Money::Currency.find(currency)
+    Currency.find(currency)
   end
 
   def current_week_by_user(user)

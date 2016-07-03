@@ -20,7 +20,7 @@ gem 'money-rails'
 # https://github.com/plataformatec/devise
 gem 'devise'
 # https://github.com/hexorx/countries
-gem 'countries', :require => 'countries/global'
+gem 'countries', require: 'countries/global'
 # https://github.com/joecorcoran/cities
 gem 'cities', '~> 0.3.1'
 # https://github.com/puma/puma
