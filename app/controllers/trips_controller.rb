@@ -2,7 +2,7 @@ class TripsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @trips = current_user.trips
+    @trips = current_user.trips.most_recent(8)
   end
 
   def create
@@ -45,11 +45,14 @@ class TripsController < ApplicationController
   end
 
   private
+
   def find_trip
     current_user.trips.find(params[:id])
   end
 
   def trip_params
-    params.require(:trip).permit(:start_date, :end_date, :country, :city, :currency, :exchange_rate, :exchange_rate_currency)
+    params.require(:trip).permit(:start_date, :end_date, :country, :city,
+                                 :currency, :exchange_rate,
+                                 :exchange_rate_currency)
   end
 end

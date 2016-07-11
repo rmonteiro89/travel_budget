@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def add_default_categories
     categories << Category.default
   end

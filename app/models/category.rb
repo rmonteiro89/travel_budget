@@ -3,6 +3,12 @@ class Category < ActiveRecord::Base
   belongs_to :user
 
   def self.default
-    [new(name: 'Accomodation'), new(name: 'Food'), new(name: 'Transport'), new(name: 'Activities')]
+    [
+      new(name: 'Accomodation'),
+      new(name: 'Food'),
+      new(name: 'Transport'),
+      new(name: 'Activities'),
+      new(name: 'Other')
+    ]
   end
 end

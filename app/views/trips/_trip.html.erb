@@ -1,10 +1,23 @@
 <div class="col-md-3">
   <div class="thumbnail text-center">
-    <%= link_to trip_path(trip), html_options: {class:"caption"} do %>
-      <h4><strong><%= trip.city %><strong></h4>
-      <h4><%= trip.country %></h4>
-      <h4><%= l(trip.start_date) %> to <%= l(trip.end_date) %></h4>
-      <p class="lead"><strong><%= trip.total_by_user(current_user).format %></strong></p>
+    <% if trip.current? %>
+      <div class="row pull-right">
+        <span class="label label-warning">Current</span>
+      </div>
     <% end %>
+    <br>
+    <div class="row">
+      <%= link_to trip_path(trip), html_options: {class:"caption"} do %>
+        <h4><strong><%= trip.city %></strong></h4>
+        <h4><%= trip.country %></h4>
+        <h4><%= l(trip.start_date) %> to <%= l(trip.end_date) %></h4>
+        <p class="lead">
+          <strong>
+            <%= trip.calc_in_exchange_currency(trip.total_by_user(current_user).cents).format %>
+          </strong><br>
+          <%= trip.total_by_user(current_user).format %>
+        </p>
+      <% end %>
+    </div>
   </div>
 </div>
