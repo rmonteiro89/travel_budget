@@ -1,20 +1,17 @@
-@font-size-base: 16px;
-
 header .navbar {
   border-bottom: 1px solid;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
   border-color: #c2c2c2;
-  padding: 5px 50px 5px 50px;
+  background-color: transparent;
 }
 
-header .navbar-brand {
+header .logo {
   float: left;
   padding: 15px 15px;
-  font-size: 30px;
-  line-height: 30px;
-  height: 60px;
+  font-size: 220%;
+  line-height: 100%;
   color: #c9302c;
   font-weight: bold;
 }
