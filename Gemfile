@@ -26,6 +26,8 @@ gem 'cities', '~> 0.3.1'
 # https://github.com/puma/puma
 gem 'puma'
 
+gem 'sprockets-rails', '>= 2.1.4'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.0'
