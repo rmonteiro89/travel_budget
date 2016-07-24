@@ -31,7 +31,7 @@ class Trip < ActiveRecord::Base
     return Money.new(0, currency) unless expenses.present?
 
     current_date = Date.current > end_date ? end_date : Date.current
-    amount_of_days_til_now = (Date.current - current_date).to_i
+    amount_of_days_til_now = (current_date - start_date).to_i
 
     if amount_of_days_til_now > 0
       (total_by_user(user) / amount_of_days_til_now)
