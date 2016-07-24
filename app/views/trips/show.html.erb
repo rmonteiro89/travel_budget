@@ -38,7 +38,7 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="all_expenses">
       <div class="panel-body">
-        <%= render partial: 'expenses/expenses_table', locals: {trip: @trip} %>
+        <%= render partial: 'expenses/expenses_table', locals: { trip: @trip, expenses: @expenses } %>
       </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="debts">

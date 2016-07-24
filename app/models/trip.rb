@@ -6,23 +6,30 @@ class Trip < ActiveRecord::Base
 
   monetize :exchange_rate_cents, with_model_currency: :currency
 
+  def amount_of_days
+    (end_date - start_date + 1).to_i
+  end
+
   def local_currency
     Currency.find(currency)
+  end
+
+  def current_day_by_user(user)
+    sum_expenses(expenses_by_user(user).by_date(Date.current), :amount)
   end
 
   def current_week_by_user(user)
     expenses = expenses_by_user(user).order(:date)
     return Money.new(0, currency) unless expenses.present?
 
-    first_day_of_week = Date.today.beginning_of_week
-    expenses.where('date >= ?', first_day_of_week).inject(Money.new(0, currency)) { |sum, expense| sum + expense.amount }
+    week_expenses = expenses.where('date >= ?', Date.today.beginning_of_week)
+    sum_expenses(week_expenses, :amount)
   end
 
   def average_per_day_by_user(user)
     expenses = expenses_by_user(user).order(:date)
     return Money.new(0, currency) unless expenses.present?
 
-    amount_of_days = (expenses.last.date - expenses.first.date).to_i
     amount_of_days > 0 ? (total_by_user(user) / amount_of_days) : (total_by_user(user) / 1)
   end
 
@@ -67,6 +74,10 @@ class Trip < ActiveRecord::Base
   end
 
   def sum_expenses_by_user_with(user, method)
-    expenses_by_user(user).inject(Money.new(0, currency)) { |sum, expense| sum + expense.send(method) }
+    sum_expenses(expenses_by_user(user), method)
+  end
+
+  def sum_expenses(list, method)
+    list.inject(Money.new(0, currency)) { |a, e| a + e.send(method) }
   end
 end

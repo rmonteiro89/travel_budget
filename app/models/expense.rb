@@ -7,6 +7,8 @@ class Expense < ActiveRecord::Base
   monetize :amount_cents, with_model_currency: :currency
 
   scope :by_user, -> (user) { where(user_id: user.id) }
+  scope :by_date, -> (date) { where(date: date) }
+  scope :most_recent, -> (limit = 10) { order(date: :desc).limit(limit) }
 
   delegate :currency, to: :trip
   delegate :name, to: :category, allow_nil: true, prefix: true

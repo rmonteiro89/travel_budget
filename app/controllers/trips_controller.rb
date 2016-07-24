@@ -34,6 +34,7 @@ class TripsController < ApplicationController
 
   def show
     @trip = find_trip
+    @expenses = @trip.expenses_by_user(current_user).most_recent(20)
   end
 
   def destroy

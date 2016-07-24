@@ -13,6 +13,11 @@
           <td><%= trip.calc_in_exchange_currency(trip.total_by_user(current_user).cents).format %></td>
         </tr>
         <tr>
+          <td>Total Spent Today</td>
+          <td><%= trip.current_day_by_user(current_user).format %></td>
+          <td><%= trip.calc_in_exchange_currency(trip.current_day_by_user(current_user).cents).format %></td>
+        </tr>
+        <tr>
           <td>Average per Day</td>
           <td><%= trip.average_per_day_by_user(current_user).format %></td>
           <td><%= trip.calc_in_exchange_currency(trip.average_per_day_by_user(current_user).cents).format %></td>
