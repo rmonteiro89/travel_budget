@@ -10,6 +10,14 @@ class Trip < ActiveRecord::Base
     (end_date - start_date + 1).to_i
   end
 
+  def amount_of_days_until_now
+    if Date.current > end_date
+      amount_of_days
+    else
+      (Date.current - start_date + 1).to_i
+    end
+  end
+
   def local_currency
     Currency.find(currency)
   end
@@ -30,14 +38,7 @@ class Trip < ActiveRecord::Base
     expenses = expenses_by_user(user).order(:date)
     return Money.new(0, currency) unless expenses.present?
 
-    current_date = Date.current > end_date ? end_date : Date.current
-    amount_of_days_til_now = (current_date - start_date).to_i
-
-    if amount_of_days_til_now > 0
-      (total_by_user(user) / amount_of_days_til_now)
-    else
-      (total_by_user(user) / 1)
-    end
+    (total_by_user(user) / amount_of_days_until_now)
   end
 
   def average_per_week_by_user(user)
