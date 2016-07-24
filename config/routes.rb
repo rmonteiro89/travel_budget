@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
   get 'trips' => 'trips#index', as: :user_root
+  resources :blog_posts, only: [:index]
   resources :trips do
     resources :expenses do
       resources :debts, only: [:create]

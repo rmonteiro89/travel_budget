@@ -25,6 +25,7 @@ gem 'countries', require: 'countries/global'
 gem 'cities', '~> 0.3.1'
 # https://github.com/puma/puma
 gem 'puma'
+gem 'rest-client'
 
 gem 'sprockets-rails', '>= 2.1.4'
 
