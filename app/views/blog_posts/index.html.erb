@@ -1,11 +1,45 @@
 <div class="row">
   <div class="col-md-12">
-    <% @posts.first(9).each do |post| %>
-      <div class="col-md-4 text-center">
-        <%= image_tag post[:img], size: "350x200" %>
-        <h3><%= link_to post[:title], post[:url], target: '_blank' %></h3>
-        <br>
+    <div class="col-md-8">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>Articles</h4></div>
+        <div class="panel-body">
+          <% @posts.first(8).each do |post| %>
+            <div class="col-md-6 text-center">
+              <%= image_tag post[:img], size: "300x200" %>
+              <h3><%= link_to post[:title], post[:url], target: '_blank' %></h3>
+              <br>
+            </div>
+          <% end %>
+        </div>
       </div>
-    <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4>Links</h4></div>
+        <div class="panel-body">
+          <p>Accomodation</p>
+          <ul>
+            <li><%= link_to 'AirBnb', 'https://www.airbnb.com/', title: "Book homes from local hosts and experience a place like you live there." %>
+            </li>
+            <li><%= link_to 'Booking', 'http://www.booking.com', title: 'Big savings on hotels in 85000 destinations worldwide. Browse hotel reviews and find the guaranteed best price on hotels for all budgets.' %></li>
+            <li><%= link_to 'CouchSurfing', 'https://www.couchsurfing.com/', title: 'Stay with Locals and Make Travel Friends' %></li>
+          </ul>
+          <p>Transportation</p>
+          <ul>
+            <li><%= link_to 'SkyScanner', 'https://www.skyscanner.net/', title: 'Compare Cheap Flights, Hotels & Car Hire' %></li>
+            <li><%= link_to 'BlaBlaCar', 'https://www.blablacar.com/', title: "The world's leading long distance ridesharing service, connecting drivers with empty seats to people travelling the same way." %></li>
+            <li><%= link_to 'GoEuro', 'http://www.goeuro.com/', title: 'Start your European journey with one click. GoEuro makes it easy to compare and combine air, rail, bus and car for better pricing and easier booking.' %></li>
+            <li><%= link_to 'Rome2rio', 'https://www.rome2rio.com/', title: 'Discover how to get anywhere by searching plane, train, bus, car and ferry routes.' %></li>
+          </ul>
+          <p>Activities/Food</p>
+          <ul>
+            <li><%= link_to 'TripAdvisor', 'https://www.tripadvisor.com/', title: "World's Largest Travel Site. 200 million+ unbiased traveler reviews." %></li>
+            <li><%= link_to 'Yelp', 'http://www.yelp.com/', title: 'User Reviews and Recommendations of Top Restaurants, Shopping, Nightlife, Entertainment, Services and More.' %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
