@@ -1,13 +1,11 @@
 <%= render 'trips/add_trip' %>
 <br>
 <div class="row">
-  <div class="col-md-12">
-    <div class="row">
-      <% if @trips.present? %>
-        <%= render(@trips) %>
-      <% else %>
-        <h4><%= "Click on the button with the plus icon above to add your first trip." %></h4>
-      <% end %>
+  <% if @trips.present? %>
+    <%= render(@trips) %>
+  <% else %>
+    <div class="col-md-12">
+      <p class='alert alert-info'><%= "Click on the button with the plus icon above to add your first trip." %></p>
     </div>
-  </div>
+  <% end %>
 </div>

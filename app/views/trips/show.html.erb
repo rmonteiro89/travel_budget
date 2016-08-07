@@ -10,14 +10,14 @@
     <% end %>
   </div>
 </div>
-<%= render partial: 'trips/trip_info', locals: {trip: @trip} %>
+<%= render partial: 'trip_info', locals: {trip: @trip} %>
 <br>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">New Expense</h3>
   </div>
   <div class="panel-body">
-    <%= render partial: 'expenses/add_expense', locals: {trip: @trip} %>
+    <%= render partial: 'add_expense', locals: {trip: @trip} %>
   </div>
 </div>
 
@@ -33,12 +33,12 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="summary">
       <div class="panel-body">
-        <%= render partial: 'trips/trip_summary', locals: {trip: @trip} %>
+        <%= render partial: 'trip_summary', locals: {trip: @trip} %>
       </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="all_expenses">
       <div class="panel-body">
-        <%= render partial: 'expenses/expenses_table', locals: { trip: @trip, expenses: @expenses } %>
+        <%= render partial: 'expenses_table', locals: { trip: @trip, expenses: @expenses } %>
       </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="debts">

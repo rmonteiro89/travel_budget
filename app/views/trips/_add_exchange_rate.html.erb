@@ -10,7 +10,7 @@
             <tbody>
               <tr>
                 <td class="text-right"><%= "#{trip.local_currency.try(:smallest_denomination)} #{trip.currency} =" %></td>
-                <td class="col-md-5"><%= trip_form.text_field :exchange_rate, class: "form-control" %></td>
+                <td class="col-md-5"><%= trip_form.text_field :exchange_rate, class: "form-control mask-money" %></td>
                 <td><%= current_user.currency %></td>
               <tr>
             </tbody>

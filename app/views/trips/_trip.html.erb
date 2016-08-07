@@ -8,14 +8,15 @@
     <br>
     <div class="row">
       <%= link_to trip_path(trip), html_options: {class:"caption"} do %>
-        <h4><strong><%= trip.city %></strong></h4>
-        <h4><%= trip.country %></h4>
+        <h4><strong><%= trip.city[0..20] %></strong></h4>
+        <h4><%= trip.country[0..20] %></h4>
         <h4><%= l(trip.start_date) %> to <%= l(trip.end_date) %></h4>
         <p class="lead">
+          <%= trip.total_by_user(current_user).format %>
+          <br>
           <strong>
             <%= trip.calc_in_exchange_currency(trip.total_by_user(current_user).cents).format %>
-          </strong><br>
-          <%= trip.total_by_user(current_user).format %>
+          </strong>
         </p>
       <% end %>
     </div>
