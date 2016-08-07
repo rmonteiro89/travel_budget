@@ -13,7 +13,6 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap-datepicker
 //= require jquery-maskMoney
 //= require_tree .
@@ -23,19 +22,19 @@ $.fn.datepicker.defaults.autoclose = true;
 
 $(document).on('page:load', function() {
   load_datepicker();
-
-  $('.mask-money').each( function(){
-    $(this).maskMoney();
-  });
+  load_mask_money();
 });
 
 $(document).ready(function(){
   load_datepicker();
+  load_mask_money();
+});
 
+function load_mask_money() {
   $('.mask-money').each( function(){
     $(this).maskMoney();
   });
-});
+}
 
 function load_datepicker() {
   $('.datepicker').each(function() {

@@ -37,7 +37,7 @@
           <div class="row">
             <div class="form-group col-md-6">
               <%= trip_form.label :start_date %>
-              <%= trip_form.text_field :start_date, class: 'form-control datepicker', id: 'start_date' %>
+              <%= trip_form.text_field :start_date, value: l(Date.current), class: 'form-control datepicker', id: 'start_date' %>
             </div>
             <div class="form-group col-md-6">
               <%= trip_form.label :end_date %>
