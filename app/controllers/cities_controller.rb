@@ -10,6 +10,7 @@ class CitiesController < ApplicationController
   end
 
   private
+
   def find_cities_by_country_name(country_name)
     country_code = country_code_by_country_name(country_name)
     find_cities_by_country_code(country_code)
@@ -22,6 +23,6 @@ class CitiesController < ApplicationController
 
   def find_cities_by_country_code(country_code)
     Cities.data_path = 'lib/data/cities'
-    Cities.cities_in_country(country_code).keys.map(&:humanize)
+    Cities.cities_in_country(country_code).values.map(&:name)
   end
 end
